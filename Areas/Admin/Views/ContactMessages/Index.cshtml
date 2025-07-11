@@ -1,0 +1,114 @@
+@model IEnumerable<DigitalSolutionsWeb.Models.ContactMessage>
+
+@{ 
+    ViewData["Title"] = "联系消息管理";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0">
+                    <i class="fas fa-envelope-open me-2"></i>联系消息管理
+                </h1>
+                <div class="text-muted">
+                    <small>共 @Model.Count() 条消息，其中 @Model.Count(m => !m.IsRead) 条未读</small>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">
+                        <i class="fas fa-list me-2"></i>消息列表
+                    </h5>
+                </div>
+                <div class="card-body p-0">
+                    @if (Model.Any())
+                    {
+                        <div class="table-responsive">
+                            <table class="table table-hover mb-0">
+                                <thead class="table-light">
+                                    <tr>
+                                        <th class="text-center" style="width: 60px;">状态</th>
+                                        <th style="width: 150px;">
+                                            <i class="fas fa-user me-1"></i>姓名
+                                        </th>
+                                        <th style="width: 200px;">
+                                            <i class="fas fa-envelope me-1"></i>邮箱
+                                        </th>
+                                        <th>
+                                            <i class="fas fa-tag me-1"></i>主题
+                                        </th>
+                                        <th style="width: 160px;">
+                                            <i class="fas fa-clock me-1"></i>提交时间
+                                        </th>
+                                        <th class="text-center" style="width: 120px;">操作</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.OrderByDescending(m => m.SubmittedAt))
+                                    {
+                                        <tr class="@(item.IsRead ? "" : "table-info")">
+                                            <td class="text-center">
+                                                @if (item.IsRead)
+                                                {
+                                                    <span class="badge bg-success">
+                                                        <i class="fas fa-check"></i> 已读
+                                                    </span>
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-warning">
+                                                        <i class="fas fa-exclamation"></i> 未读
+                                                    </span>
+                                                }
+                                            </td>
+                                            <td>
+                                                <strong>@item.Name</strong>
+                                                @if (!string.IsNullOrEmpty(item.Phone))
+                                                {
+                                                    <br><small class="text-muted">@item.Phone</small>
+                                                }
+                                            </td>
+                                            <td>
+                                                <a href="mailto:@item.Email" class="text-decoration-none">
+                                                    @item.Email
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <div class="text-truncate" style="max-width: 300px;" title="@item.Subject">
+                                                    @item.Subject
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <small class="text-muted">
+                                                    @item.SubmittedAt.ToString("yyyy-MM-dd HH:mm")
+                                                </small>
+                                            </td>
+                                            <td class="text-center">
+                                                <a asp-action="Details" asp-route-id="@item.Id" 
+                                                   class="btn btn-sm btn-outline-primary">
+                                                    <i class="fas fa-eye me-1"></i>查看
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="text-center py-5">
+                            <div class="mb-3">
+                                <i class="fas fa-inbox fa-3x text-muted"></i>
+                            </div>
+                            <h5 class="text-muted">暂无联系消息</h5>
+                            <p class="text-muted">当有用户通过联系表单发送消息时，将在此处显示。</p>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

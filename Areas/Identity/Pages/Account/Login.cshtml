@@ -1,0 +1,101 @@
+@page
+@model LoginModel
+
+@{
+    // 从ViewData获取是否为管理员登录的标记（由_ViewStart.cshtml设置）
+    var isAdminLogin = ViewData["IsAdminLogin"] as bool? ?? false;
+    
+    // 如果ViewData没有设置，检查Model的ReturnUrl作为备用判断
+    if (!isAdminLogin && !string.IsNullOrEmpty(Model.ReturnUrl))
+    {
+        isAdminLogin = Model.ReturnUrl.StartsWith("/Admin");
+    }
+    
+    ViewData["Title"] = isAdminLogin ? "管理员登录" : "登录";
+}
+
+@if (isAdminLogin)
+{
+    <!-- 管理员登录界面 - 使用AdminLTE风格 -->
+    <p class="login-box-msg">请输入您的管理员凭据登录后台</p>
+    
+    <form id="account" method="post">
+        <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+        <input name="ReturnUrl" type="hidden" value="@Model.ReturnUrl" />
+        
+        <div class="input-group mb-3">
+            <input asp-for="Input.Email" class="form-control" placeholder="管理员邮箱" autocomplete="username" />
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-envelope"></span>
+                </div>
+            </div>
+        </div>
+        <span asp-validation-for="Input.Email" class="text-danger d-block mb-2"></span>
+        
+        <div class="input-group mb-3">
+            <input asp-for="Input.Password" class="form-control" placeholder="密码" autocomplete="current-password" />
+            <div class="input-group-append">
+                <div class="input-group-text">
+                    <span class="fas fa-lock"></span>
+                </div>
+            </div>
+        </div>
+        <span asp-validation-for="Input.Password" class="text-danger d-block mb-3"></span>
+        
+        <div class="row">
+            <div class="col-8">
+                <div class="icheck-primary">
+                    <input asp-for="Input.RememberMe" type="checkbox" id="remember" />
+                    <label for="remember" class="font-weight-normal">记住登录状态</label>
+                </div>
+            </div>
+            <div class="col-4">
+                <button id="login-submit" type="submit" class="btn btn-primary btn-block">登录</button>
+            </div>
+        </div>
+    </form>
+    
+    <p class="mb-0 mt-3 text-center">
+        <small class="text-muted">数字解决方案管理后台</small>
+    </p>
+}
+else
+{
+    <!-- 前台用户登录界面 - 保持原有样式 -->
+    <h1>@ViewData["Title"]</h1>
+    <div class="row">
+        <div class="col-md-4">
+            <section>
+                <form id="account" method="post">
+                    <h2>使用本地账号登录</h2>
+                    <hr />
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-floating">
+                        <input asp-for="Input.Email" class="form-control" autocomplete="username" />
+                        <label asp-for="Input.Email" class="form-label"></label>
+                        <span asp-validation-for="Input.Email" class="text-danger"></span>
+                    </div>
+                    <div class="form-floating">
+                        <input asp-for="Input.Password" class="form-control" autocomplete="current-password" />
+                        <label asp-for="Input.Password" class="form-label"></label>
+                        <span asp-validation-for="Input.Password" class="text-danger"></span>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" asp-for="Input.RememberMe" />
+                        <label asp-for="Input.RememberMe" class="form-check-label">
+                            @Html.DisplayNameFor(m => m.Input.RememberMe)
+                        </label>
+                    </div>
+                    <div>
+                        <button id="login-submit" type="submit" class="w-100 btn btn-lg btn-primary">登录</button>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,21 @@
+@{
+    // 检查是否是后台管理员登录页面
+    var returnUrl = Context.Request.Query["ReturnUrl"].ToString() ?? "";
+    
+    if (!string.IsNullOrEmpty(returnUrl) && returnUrl.StartsWith("/Admin"))
+    {
+        // 使用管理后台专用的登录页面布局
+        Layout = "_AdminLoginLayout.cshtml";
+        
+        // 设置ViewData以便在登录页面中使用
+        ViewData["IsAdminLogin"] = true;
+        ViewData["Title"] = "管理员登录";
+    }
+    else
+    {
+        // 前台用户使用默认布局
+        Layout = "/Views/Shared/_Layout.cshtml";
+        ViewData["IsAdminLogin"] = false;
+        ViewData["Title"] = "登录";
+    }
+}

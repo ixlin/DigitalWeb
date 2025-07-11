@@ -1,0 +1,208 @@
+@{
+    ViewData["Title"] = "控制台";
+}
+
+<div class="container-fluid">
+    <!-- 统计卡片 -->
+    <div class="row">
+        <div class="col-lg-3 col-6">
+            <!-- 总消息数 -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h3>@ViewBag.TotalMessages</h3>
+                    <p>总消息数</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-envelope"></i>
+                </div>
+                <a href="@Url.Action("Index", "ContactMessages")" class="small-box-footer">
+                    查看详情 <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-6">
+            <!-- 未读消息数 -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h3>@ViewBag.UnreadMessages</h3>
+                    <p>未读消息</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <a href="@Url.Action("Index", "ContactMessages")" class="small-box-footer">
+                    查看详情 <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-6">
+            <!-- 今日消息数 -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h3>@ViewBag.TodayMessages</h3>
+                    <p>今日消息</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-calendar-day"></i>
+                </div>
+                <a href="@Url.Action("Index", "ContactMessages")" class="small-box-footer">
+                    查看详情 <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+        
+        <div class="col-lg-3 col-6">
+            <!-- 系统设置 -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h3><i class="fas fa-cog"></i></h3>
+                    <p>系统设置</p>
+                </div>
+                <div class="icon">
+                    <i class="fas fa-cogs"></i>
+                </div>
+                <a href="@Url.Action("Index", "SystemSettings")" class="small-box-footer">
+                    进入设置 <i class="fas fa-arrow-circle-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 快速操作 -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-rocket mr-2"></i>快速操作
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-info">
+                                    <i class="fas fa-envelope"></i>
+                                </span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">联系消息管理</span>
+                                    <span class="info-box-number">查看和回复客户消息</span>
+                                    <div class="progress">
+                                        <div class="progress-bar" style="width: 100%"></div>
+                                    </div>
+                                    <span class="progress-description">
+                                        <a href="@Url.Action("Index", "ContactMessages")" class="btn btn-sm btn-info">
+                                            <i class="fas fa-arrow-right mr-1"></i>立即查看
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-success">
+                                    <i class="fas fa-cogs"></i>
+                                </span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">系统设置</span>
+                                    <span class="info-box-number">配置公司信息和邮件</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-success" style="width: 100%"></div>
+                                    </div>
+                                    <span class="progress-description">
+                                        <a href="@Url.Action("Index", "SystemSettings")" class="btn btn-sm btn-success">
+                                            <i class="fas fa-arrow-right mr-1"></i>进入设置
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="col-md-4">
+                            <div class="info-box">
+                                <span class="info-box-icon bg-warning">
+                                    <i class="fas fa-globe"></i>
+                                </span>
+                                <div class="info-box-content">
+                                    <span class="info-box-text">访问前台</span>
+                                    <span class="info-box-number">查看网站前台页面</span>
+                                    <div class="progress">
+                                        <div class="progress-bar bg-warning" style="width: 100%"></div>
+                                    </div>
+                                    <span class="progress-description">
+                                        <a href="/" target="_blank" class="btn btn-sm btn-warning">
+                                            <i class="fas fa-external-link-alt mr-1"></i>打开前台
+                                        </a>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 系统信息 -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-info-circle mr-2"></i>系统信息
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <table class="table table-sm">
+                        <tr>
+                            <td><strong>系统版本:</strong></td>
+                            <td>1.0.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>框架版本:</strong></td>
+                            <td>ASP.NET Core 8.0</td>
+                        </tr>
+                        <tr>
+                            <td><strong>数据库:</strong></td>
+                            <td>SQLite</td>
+                        </tr>
+                        <tr>
+                            <td><strong>服务器时间:</strong></td>
+                            <td>@DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-chart-line mr-2"></i>使用情况
+                    </h3>
+                </div>
+                <div class="card-body">
+                    <div class="progress-group">
+                        消息处理率
+                        <span class="float-right"><b>@(ViewBag.TotalMessages > 0 ? Math.Round((double)(ViewBag.TotalMessages - ViewBag.UnreadMessages) / ViewBag.TotalMessages * 100, 1) : 100)</b>%</span>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-primary" style="width: @(ViewBag.TotalMessages > 0 ? Math.Round((double)(ViewBag.TotalMessages - ViewBag.UnreadMessages) / ViewBag.TotalMessages * 100, 1) : 100)%"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="progress-group">
+                        今日活跃度
+                        <span class="float-right"><b>@(ViewBag.TodayMessages)</b>条消息</span>
+                        <div class="progress progress-sm">
+                            <div class="progress-bar bg-success" style="width: @(ViewBag.TodayMessages > 0 ? Math.Min(ViewBag.TodayMessages * 10, 100) : 5)%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

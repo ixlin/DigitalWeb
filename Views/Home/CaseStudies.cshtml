@@ -1,0 +1,230 @@
+@model CaseStudiesViewModel
+@{
+    ViewData["Title"] = "案例";
+}
+
+<!-- 页面标题 -->
+<section class="bg-primary text-white py-5 mt-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="fw-bold mb-4">成功案例</h1>
+                <p class="lead">探索我们如何帮助各行业客户实现数字化转型，创造业务价值</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 案例概述 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">我们的成功案例</h2>
+                <p class="lead">我们与各行业领先企业合作，帮助他们解决业务挑战，实现数字化转型。以下是我们的部分成功案例，展示了我们如何为客户创造实际价值。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 案例详情 -->
+@foreach (var caseStudy in Model.CaseStudies)
+{
+    <section class="py-5 @(Model.CaseStudies.IndexOf(caseStudy) % 2 == 1 ? "bg-light" : "")">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-6 @(Model.CaseStudies.IndexOf(caseStudy) % 2 == 0 ? "order-lg-1" : "order-lg-2") mb-4 mb-lg-0" data-aos="@(Model.CaseStudies.IndexOf(caseStudy) % 2 == 0 ? "fade-right" : "fade-left")">
+                    <img src="@caseStudy.ImageUrl" class="img-fluid rounded shadow" alt="@caseStudy.Title">
+                </div>
+                <div class="col-lg-6 @(Model.CaseStudies.IndexOf(caseStudy) % 2 == 0 ? "order-lg-2" : "order-lg-1")" data-aos="@(Model.CaseStudies.IndexOf(caseStudy) % 2 == 0 ? "fade-left" : "fade-right")">
+                    <div class="case-study-badge mb-3">
+                        <span class="badge bg-primary">@caseStudy.Industry</span>
+                    </div>
+                    <h2 class="fw-bold mb-4">@caseStudy.Title</h2>
+                    <div class="case-study-content">
+                        <div class="mb-4">
+                            <h5 class="mb-3"><i class="bi bi-question-circle me-2 text-primary"></i>挑战</h5>
+                            <p>@caseStudy.Challenge</p>
+                        </div>
+                        <div class="mb-4">
+                            <h5 class="mb-3"><i class="bi bi-lightbulb me-2 text-primary"></i>解决方案</h5>
+                            <p>@caseStudy.Solution</p>
+                        </div>
+                        <div>
+                            <h5 class="mb-3"><i class="bi bi-graph-up-arrow me-2 text-primary"></i>成果</h5>
+                            <ul class="list-unstyled">
+                                @foreach (var result in caseStudy.Results)
+                                {
+                                    <li class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>@result</li>
+                                }
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- 行业覆盖 -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">我们服务的行业</h2>
+                <p class="lead">我们的解决方案适用于各个行业，帮助企业应对数字化挑战</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-4" data-aos="fade-up">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <div class="industry-icon mb-3">
+                            <i class="bi bi-building text-primary fs-1"></i>
+                        </div>
+                        <h4 class="card-title mb-3">制造业</h4>
+                        <p class="card-text">智能制造解决方案，优化生产流程，提高生产效率，降低运营成本。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <div class="industry-icon mb-3">
+                            <i class="bi bi-bank text-primary fs-1"></i>
+                        </div>
+                        <h4 class="card-title mb-3">金融服务</h4>
+                        <p class="card-text">数字化金融服务平台，提升客户体验，加强风险控制，促进业务创新。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <div class="industry-icon mb-3">
+                            <i class="bi bi-cart4 text-primary fs-1"></i>
+                        </div>
+                        <h4 class="card-title mb-3">零售</h4>
+                        <p class="card-text">全渠道零售解决方案，整合线上线下资源，提升购物体验，增强客户忠诚度。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <div class="industry-icon mb-3">
+                            <i class="bi bi-truck text-primary fs-1"></i>
+                        </div>
+                        <h4 class="card-title mb-3">物流与供应链</h4>
+                        <p class="card-text">智能物流和供应链管理系统，优化配送路线，提高库存周转率，降低物流成本。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <div class="industry-icon mb-3">
+                            <i class="bi bi-hospital text-primary fs-1"></i>
+                        </div>
+                        <h4 class="card-title mb-3">医疗健康</h4>
+                        <p class="card-text">医疗信息化解决方案，提升医疗服务质量，优化医疗资源配置，促进医患沟通。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4 text-center">
+                        <div class="industry-icon mb-3">
+                            <i class="bi bi-book text-primary fs-1"></i>
+                        </div>
+                        <h4 class="card-title mb-3">教育</h4>
+                        <p class="card-text">教育信息化解决方案，支持在线教学，个性化学习，提升教育管理效率。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 客户证言 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">客户证言</h2>
+                <p class="lead">我们的客户对我们的评价</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6" data-aos="fade-up">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="testimonial-img me-3">
+                                <img src="/images/stock/client-testimonial-1.jpg" class="rounded-circle" alt="客户头像">
+                            </div>
+                            <div>
+                                <h5 class="mb-1">陈总</h5>
+                                <p class="text-muted mb-0">某科技公司 CTO</p>
+                            </div>
+                        </div>
+                        <p class="mb-0">"数字未来团队的技术实力和专业素养令人印象深刻。他们不仅帮助我们实现了技术升级，还为我们提供了宝贵的战略建议，使我们的数字化转型更加顺利。"</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="d-flex align-items-center mb-4">
+                            <div class="testimonial-img me-3">
+                                <img src="/images/stock/client-testimonial-2.jpg" class="rounded-circle" alt="客户头像">
+                            </div>
+                            <div>
+                                <h5 class="mb-1">刘总</h5>
+                                <p class="text-muted mb-0">某医疗机构 CEO</p>
+                            </div>
+                        </div>
+                        <p class="mb-0">"数字未来开发的医疗信息系统大大提高了我们的工作效率，减少了医疗错误，提升了患者满意度。他们对医疗行业的深入理解和专业技术能力给我们留下了深刻印象。"</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 联系我们 -->
+<section class="py-5 bg-primary text-white">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">想了解更多案例？</h2>
+                <p class="lead mb-4">联系我们，获取更多详细案例和定制化解决方案</p>
+                <a href="/Home/Contact" class="btn btn-light btn-lg">联系我们</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <style>
+        /* 案例研究样式 */
+        .case-study-content {
+            position: relative;
+        }
+        
+        /* 客户证言样式 */
+        .testimonial-img img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+        }
+        
+        /* 行业图标样式 */
+        .industry-icon {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+}

@@ -1,0 +1,214 @@
+@model ContactPageViewModel
+@{
+    ViewData["Title"] = "联系我们";
+}
+
+<!-- 页面标题 -->
+<section class="bg-primary text-white py-5 mt-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="fw-bold mb-4">联系我们</h1>
+                <p class="lead">我们期待与您沟通，了解您的需求，为您提供最适合的解决方案</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 联系信息和表单 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row g-5">
+            <!-- 联系信息 -->
+            <div class="col-lg-5" data-aos="fade-right">
+                <h2 class="fw-bold mb-4">联系方式</h2>
+                <p class="lead mb-4">无论您有任何问题或需求，都可以通过以下方式联系我们，我们将尽快回复您。</p>
+                
+                <div class="contact-info">
+                    <div class="contact-item d-flex mb-4" id="contact-address">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-geo-alt-fill fs-4 text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-2">公司地址</h5>
+                            <p class="mb-0">@Model.Address</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item d-flex mb-4" id="contact-phone">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-telephone-fill fs-4 text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-2">电话</h5>
+                            <p class="mb-0">@Model.Phone</p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item d-flex mb-4" id="contact-email">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-envelope-fill fs-4 text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-2">电子邮箱</h5>
+                            <p class="mb-0"><a href="mailto:@Model.Email" class="text-decoration-none text-dark">@Model.Email</a></p>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-item d-flex mb-4">
+                        <div class="contact-icon me-3">
+                            <i class="bi bi-clock-fill fs-4 text-primary"></i>
+                        </div>
+                        <div>
+                            <h5 class="mb-2">工作时间</h5>
+                            <p class="mb-0">周一至周五: 9:00 - 18:00</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="social-links mt-5">
+                    <h5 class="mb-3">关注我们</h5>
+                    <div class="d-flex">
+                        <a href="#" class="me-3 social-icon"><i class="bi bi-linkedin fs-4"></i></a>
+                        <a href="#" class="me-3 social-icon"><i class="bi bi-twitter-x fs-4"></i></a>
+                        <a href="#" class="me-3 social-icon"><i class="bi bi-facebook fs-4"></i></a>
+                        <a href="#" class="social-icon"><i class="bi bi-instagram fs-4"></i></a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 联系表单 -->
+            <div class="col-lg-7" data-aos="fade-left">
+                <div class="contact-form bg-light p-4 p-lg-5 rounded shadow-sm">
+                    <h2 class="fw-bold mb-4">发送留言</h2>
+                    
+                    @if (TempData["SuccessMessage"] != null)
+                    {
+                        <div class="alert alert-success alert-dismissible fade show" role="alert">
+                            <i class="bi bi-check-circle-fill me-2"></i>@TempData["SuccessMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    
+                    @if (TempData["ErrorMessage"] != null)
+                    {
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-triangle-fill me-2"></i>@TempData["ErrorMessage"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    
+                    @if (!ViewData.ModelState.IsValid && ViewData.ModelState.ErrorCount > 0)
+                    {
+                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                            <i class="bi bi-exclamation-circle-fill me-2"></i>
+                            <strong>提交失败：</strong>请检查以下问题
+                            <ul class="mb-0 mt-2">
+                                @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                                {
+                                    <li>@error.ErrorMessage</li>
+                                }
+                            </ul>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
+                    
+                    <form asp-action="Contact" method="post">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Form.Name" class="form-label">姓名</label>
+                                    <input asp-for="Form.Name" class="form-control" placeholder="请输入您的姓名">
+                                    <span asp-validation-for="Form.Name" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Form.Email" class="form-label">电子邮箱</label>
+                                    <input asp-for="Form.Email" class="form-control" placeholder="请输入您的电子邮箱">
+                                    <span asp-validation-for="Form.Email" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Form.Phone" class="form-label">电话</label>
+                                    <input asp-for="Form.Phone" class="form-control" placeholder="请输入您的电话号码">
+                                    <span asp-validation-for="Form.Phone" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Form.Subject" class="form-label">主题</label>
+                                    <input asp-for="Form.Subject" class="form-control" placeholder="请输入主题">
+                                    <span asp-validation-for="Form.Subject" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group mb-3">
+                                    <label asp-for="Form.Message" class="form-label">留言</label>
+                                    <textarea asp-for="Form.Message" class="form-control" rows="5" placeholder="请输入您的留言内容"></textarea>
+                                    <span asp-validation-for="Form.Message" class="text-danger"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-3 fw-bold">发送留言</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 常见问题 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">常见问题</h2>
+                <p class="lead">以下是一些客户经常问到的问题</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item" data-aos="fade-up">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                如何开始与贵公司合作？
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                您可以通过本页面的联系表单、电话或电子邮件与我们联系。我们的客户经理会在24小时内回复您，了解您的需求，并安排初步咨询会议。在会议中，我们会深入了解您的业务挑战和目标，然后为您提供定制化的解决方案建议。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                贵公司的服务收费标准是怎样的？
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                我们的收费标准根据项目的复杂度、规模和时间要求而定。我们提供多种合作模式，包括固定价格项目、时间和材料计费、以及长期服务合同等。在初步咨询后，我们会根据您的具体需求提供详细的报价方案。我们承诺提供透明的定价，没有隐藏费用。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                贵公司是否提供售后支持和维护服务？
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                是的，我们提供全面的售后支持和维护服务。我们的支持团队7x24小时待命，确保系统的稳定运行。我们提供多种支持方案，包括基本支持、高级支持和全面管理服务等，您可以根据自己的需求选择合适的方案。此外，我们还提供定期的系统健康检查、性能优化和功能升级服务。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

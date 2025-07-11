@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>@ViewData["Title"] - DigitalSolutions Admin</title>
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="~/lib/fontawesome-free/css/all.min.css">
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css">
+    <!-- Theme style -->
+    <link rel="stylesheet" href="~/lib/admin-lte/css/adminlte.min.css">
+    <!-- Custom Admin Style -->
+    <link rel="stylesheet" href="~/css/admin.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+
+    <!-- Navbar -->
+    <partial name="_Navbar" />
+    
+    <!-- Main Sidebar Container -->
+    <partial name="_Sidebar" />
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+        @RenderBody()
+    </div>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <div class="p-3">
+            <h5>Settings</h5>
+        </div>
+    </aside>
+
+    <!-- Main Footer -->
+    <partial name="_Footer" />
+</div>    <!-- jQuery -->
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="~/lib/admin-lte/js/adminlte.min.js"></script>
+    <!-- Custom Admin JS -->
+    <script src="~/js/admin.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

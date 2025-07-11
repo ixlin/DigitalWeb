@@ -1,0 +1,379 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = "首页";
+}
+
+<!-- 轮播图部分 -->
+<div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        @for (int i = 0; i < Model.HeroSlides.Count; i++)
+        {
+            <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="@i" class="@(i == 0 ? "active" : "")" aria-current="@(i == 0 ? "true" : "false")" aria-label="Slide @(i+1)"></button>
+        }
+    </div>
+    <div class="carousel-inner">
+        @for (int i = 0; i < Model.HeroSlides.Count; i++)
+        {
+            var slide = Model.HeroSlides[i];
+            <div class="carousel-item @(i == 0 ? "active" : "")" style="background-image: url('@slide.ImageUrl')">
+                <div class="carousel-caption" data-aos="fade-up" data-aos-delay="200">
+                    <h1 class="display-4 fw-bold">@slide.Title</h1>
+                    <p class="lead">@slide.Description</p>
+                    <a href="@slide.ButtonUrl" class="btn btn-primary btn-lg">@slide.ButtonText</a>
+                </div>
+            </div>
+        }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#heroCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#heroCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<!-- 关于我们简介 -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                <img src="/images/stock/about-office.jpg" class="img-fluid rounded shadow" alt="关于我们">
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <h2 class="fw-bold mb-4">数字化转型的可靠伙伴</h2>
+                <p class="lead mb-4">我们是一家专注于为企业提供全方位数字化解决方案的服务提供商，致力于帮助企业实现数字化转型，提升业务价值。</p>
+                <p class="mb-4">凭借丰富的行业经验和专业的技术团队，我们为客户提供从战略咨询到技术实施的全流程服务，帮助企业在数字化时代保持竞争优势。</p>
+                <a href="/Home/About" class="btn btn-primary">了解更多</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 核心服务 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bold">我们的核心服务</h2>
+            <p class="lead">为企业提供全方位的数字化解决方案</p>
+        </div>
+        <div class="row g-4">
+            @foreach (var service in Model.FeaturedServices)
+            {
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="@(Model.FeaturedServices.IndexOf(service) * 100)">
+                    <div class="card h-100 border-0 shadow-sm">
+                        <div class="card-body text-center p-4">
+                            <div class="feature-icon bg-primary bg-gradient text-white rounded-circle mb-4">
+                                <i class="@service.IconClass"></i>
+                            </div>
+                            <h5 class="card-title mb-3">@service.Title</h5>
+                            <p class="card-text">@service.Description</p>
+                            <a href="@service.Url" class="btn btn-sm btn-outline-primary mt-3">了解详情</a>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- 统计数据 -->
+<section class="py-5 bg-primary text-white">
+    <div class="container py-4">
+        <div class="row g-4 text-center">
+            @foreach (var stat in Model.Statistics)
+            {
+                <div class="col-6 col-md-3" data-aos="fade-up" data-aos-delay="@(Model.Statistics.IndexOf(stat) * 100)">
+                    <div class="stat-item">
+                        <h2 class="display-4 fw-bold mb-2">@stat.Value</h2>
+                        <p class="mb-0">@stat.Label</p>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- 为什么选择我们 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="text-center mb-5" data-aos="fade-up">
+            <h2 class="fw-bold">为什么选择我们</h2>
+            <p class="lead">我们的优势和价值主张</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="feature-icon bg-light rounded-circle mb-3">
+                            <i class="bi bi-lightbulb text-primary"></i>
+                        </div>
+                        <h5 class="card-title mb-3">创新技术</h5>
+                        <p class="card-text">我们持续关注并应用最新的技术趋势，为客户提供创新的解决方案。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="feature-icon bg-light rounded-circle mb-3">
+                            <i class="bi bi-people text-primary"></i>
+                        </div>
+                        <h5 class="card-title mb-3">专业团队</h5>
+                        <p class="card-text">我们拥有一支经验丰富、技术精湛的专业团队，能够应对各种复杂挑战。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="feature-icon bg-light rounded-circle mb-3">
+                            <i class="bi bi-graph-up-arrow text-primary"></i>
+                        </div>
+                        <h5 class="card-title mb-3">成果导向</h5>
+                        <p class="card-text">我们注重客户的业务成果，确保我们的解决方案能够带来实际的商业价值。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="300">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="feature-icon bg-light rounded-circle mb-3">
+                            <i class="bi bi-shield-check text-primary"></i>
+                        </div>
+                        <h5 class="card-title mb-3">安全可靠</h5>
+                        <p class="card-text">我们高度重视数据安全和系统稳定性，为客户提供可靠的解决方案。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="400">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="feature-icon bg-light rounded-circle mb-3">
+                            <i class="bi bi-gear text-primary"></i>
+                        </div>
+                        <h5 class="card-title mb-3">定制化服务</h5>
+                        <p class="card-text">我们根据客户的具体需求提供定制化的解决方案，而不是一刀切的标准产品。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="500">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body p-4">
+                        <div class="feature-icon bg-light rounded-circle mb-3">
+                            <i class="bi bi-headset text-primary"></i>
+                        </div>
+                        <h5 class="card-title mb-3">全程支持</h5>
+                        <p class="card-text">我们提供从咨询、实施到后续支持的全程服务，确保客户的成功。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 客户评价 - 全新结构 -->
+<section class="py-5" style="background-color: #ffffff;">
+    <div class="container py-4">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold">客户评价</h2>
+            <p class="lead">听听我们的客户怎么说</p>
+        </div>
+        
+        <div id="testimonialsCarousel" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="testimonial-card">
+                        <img src="/images/stock/testimonial-1.jpg" class="testimonial-img rounded-circle" alt="客户头像">
+                        <p class="testimonial-text lead">"数字未来团队的专业素养和技术能力给我们留下了深刻印象。他们帮助我们实现了业务流程的数字化，大大提高了我们的运营效率。"</p>
+                        <h5 class="testimonial-author">张总</h5>
+                        <p class="testimonial-author-title">某制造企业 CEO</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="testimonial-card">
+                        <img src="/images/stock/testimonial-2.jpg" class="testimonial-img rounded-circle" alt="客户头像">
+                        <p class="testimonial-text lead">"数字未来开发的数据分析平台帮助我们从海量数据中获取了宝贵的商业洞察，为我们的决策提供了有力支持。"</p>
+                        <h5 class="testimonial-author">李总</h5>
+                        <p class="testimonial-author-title">某金融机构 CIO</p>
+                    </div>
+                </div>
+                
+                <div class="carousel-item">
+                    <div class="testimonial-card">
+                        <img src="/images/stock/testimonial-3.jpg" class="testimonial-img rounded-circle" alt="客户头像">
+                        <p class="testimonial-text lead">"与数字未来的合作非常愉快。他们不仅提供了技术解决方案，还帮助我们制定了完整的数字化转型战略，为我们的长期发展打下坚实基础。"</p>
+                        <h5 class="testimonial-author">王总</h5>
+                        <p class="testimonial-author-title">某零售企业 COO</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-4">
+                <button class="btn btn-sm btn-outline-secondary mx-2" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="prev">
+                    <i class="bi bi-arrow-left"></i> 上一个
+                </button>
+                <button class="btn btn-sm btn-outline-secondary mx-2" type="button" data-bs-target="#testimonialsCarousel" data-bs-slide="next">
+                    下一个 <i class="bi bi-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+<!-- 联系我们 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                <h2 class="fw-bold mb-4">准备开始您的数字化之旅？</h2>
+                <p class="lead mb-4">联系我们，了解我们如何帮助您的企业实现数字化转型。</p>
+                <ul class="list-unstyled mb-4">
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-primary me-2"></i>免费初步咨询</li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-primary me-2"></i>定制化解决方案</li>
+                    <li class="mb-3"><i class="bi bi-check-circle-fill text-primary me-2"></i>专业团队支持</li>
+                </ul>
+                <a href="/Home/Contact" class="btn btn-primary btn-lg">联系我们</a>
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <img src="/images/stock/about-team.jpg" class="img-fluid rounded shadow" alt="联系我们">
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <style>
+        /* 轮播图样式 */
+        #heroCarousel {
+            margin-top: 0;
+            position: relative;
+        }
+        
+        .carousel-item {
+            height: 600px;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            position: relative;
+        }
+        
+        /* 深色遮罩层 */
+        .carousel-item::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 1;
+        }
+        
+        /* 重新定义carousel-caption样式 */
+        .carousel-caption {
+            position: absolute !important;
+            top: 50% !important;
+            left: 50% !important;
+            transform: translate(-50%, -50%) !important;
+            bottom: auto !important;
+            right: auto !important;
+            z-index: 2;
+            text-align: center;
+            width: 90%;
+            max-width: 800px;
+        }
+        
+        .carousel-caption h1 {
+            color: white !important;
+            font-size: 3.5rem !important;
+            font-weight: bold !important;
+            margin-bottom: 1.5rem !important;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.7) !important;
+            line-height: 1.2;
+        }
+        
+        .carousel-caption p {
+            color: white !important;
+            font-size: 1.4rem !important;
+            margin-bottom: 2rem !important;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.7) !important;
+            line-height: 1.5;
+        }
+        
+        .carousel-caption .btn {
+            z-index: 3;
+            position: relative;
+            font-size: 1.1rem;
+            padding: 12px 30px;
+        }
+        
+        /* 确保容器不影响定位 */
+        .carousel-caption .container,
+        .carousel-caption .row,
+        .carousel-caption .col-lg-8 {
+            position: static !important;
+            transform: none !important;
+        }
+        
+        /* 特性图标样式 */
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        /* 客户评价样式 */
+        .testimonial-img img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+        }
+        
+        /* 统计数据样式 */
+        .stat-item {
+            padding: 20px;
+        }
+        
+        /* 响应式调整 */
+        @@media (max-width: 768px) {
+            .carousel-item {
+                height: 500px;
+            }
+            
+            .carousel-caption {
+                width: 95% !important;
+            }
+            
+            .carousel-caption h1 {
+                font-size: 2.5rem !important;
+                margin-bottom: 1rem !important;
+            }
+            
+            .carousel-caption p {
+                font-size: 1.1rem !important;
+                margin-bottom: 1.5rem !important;
+            }
+        }
+        
+        @@media (max-width: 576px) {
+            .carousel-item {
+                height: 400px;
+            }
+            
+            .carousel-caption h1 {
+                font-size: 2rem !important;
+            }
+            
+            .carousel-caption p {
+                font-size: 1rem !important;
+            }
+        }
+    </style>
+}

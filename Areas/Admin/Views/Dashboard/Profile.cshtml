@@ -1,0 +1,67 @@
+@{
+    ViewData["Title"] = "管理员信息";
+}
+
+<!-- Content Header (Page header) -->
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0">管理员信息</h1>
+            </div>
+            <div class="col-sm-6">
+                <ol class="breadcrumb float-sm-right">
+                    <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="Dashboard" asp-action="Index">控制面板</a></li>
+                    <li class="breadcrumb-item active">管理员信息</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">账户信息</h3>
+                    </div>
+                    <div class="card-body">
+                        @if (TempData["SuccessMessage"] != null)
+                        {
+                            <div class="alert alert-success">
+                                <i class="icon fas fa-check"></i> @TempData["SuccessMessage"]
+                            </div>
+                        }
+                        
+                        <table class="table table-borderless">
+                            <tr>
+                                <th style="width: 120px">用户名:</th>
+                                <td>@User.Identity?.Name</td>
+                            </tr>
+                            <tr>
+                                <th>角色:</th>
+                                <td>管理员</td>
+                            </tr>
+                            <tr>
+                                <th>状态:</th>
+                                <td><span class="badge badge-success">活跃</span></td>
+                            </tr>
+                        </table>
+                        
+                        <div class="mt-4">
+                            <a asp-action="ChangePassword" class="btn btn-primary">
+                                <i class="fas fa-key"></i> 修改密码
+                            </a>
+                            <a asp-action="Index" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> 返回控制面板
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

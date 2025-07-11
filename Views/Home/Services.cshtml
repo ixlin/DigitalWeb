@@ -1,0 +1,238 @@
+@model ServicesViewModel
+@{
+    ViewData["Title"] = "服务";
+}
+
+<!-- 页面标题 -->
+<section class="bg-primary text-white py-5 mt-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="fw-bold mb-4">我们的服务</h1>
+                <p class="lead">我们提供全方位的数字化解决方案，帮助企业实现数字化转型，提升业务价值</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 服务概述 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">全方位数字化解决方案</h2>
+                <p class="lead">我们的服务涵盖企业数字化转型的各个方面，从战略咨询到技术实施，从数据分析到云服务，为企业提供一站式数字化解决方案。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 服务详情 -->
+@foreach (var category in Model.ServiceCategories)
+{
+    <section id="@category.Id" class="py-5 @(Model.ServiceCategories.IndexOf(category) % 2 == 1 ? "bg-light" : "")">
+        <div class="container py-4">
+            <div class="row align-items-center">
+                <div class="col-lg-6 @(Model.ServiceCategories.IndexOf(category) % 2 == 0 ? "order-lg-1" : "order-lg-2") mb-4 mb-lg-0" data-aos="@(Model.ServiceCategories.IndexOf(category) % 2 == 0 ? "fade-right" : "fade-left")">
+                    <img src="@category.ImageUrl" class="img-fluid rounded shadow" alt="@category.Title">
+                </div>
+                <div class="col-lg-6 @(Model.ServiceCategories.IndexOf(category) % 2 == 0 ? "order-lg-2" : "order-lg-1")" data-aos="@(Model.ServiceCategories.IndexOf(category) % 2 == 0 ? "fade-left" : "fade-right")">
+                    <h2 class="fw-bold mb-4">@category.Title</h2>
+                    <p class="lead mb-4">@category.Description</p>
+                    <div class="service-details">
+                        @foreach (var service in category.Services)
+                        {
+                            <div class="service-item mb-4">
+                                <h5 class="mb-2"><i class="bi bi-check-circle-fill text-primary me-2"></i>@service.Title</h5>
+                                <p class="ms-4">@service.Description</p>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+
+<!-- 服务流程 -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">我们的服务流程</h2>
+                <p class="lead">我们采用系统化的方法，确保每个项目都能高质量交付</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="process-timeline">
+                    <div class="process-item d-flex" data-aos="fade-up">
+                        <div class="process-icon bg-primary text-white rounded-circle">1</div>
+                        <div class="process-content ms-4">
+                            <h4 class="mb-3">需求分析</h4>
+                            <p>深入了解客户业务需求和痛点，明确项目目标和范围。</p>
+                        </div>
+                    </div>
+                    <div class="process-item d-flex" data-aos="fade-up" data-aos-delay="100">
+                        <div class="process-icon bg-primary text-white rounded-circle">2</div>
+                        <div class="process-content ms-4">
+                            <h4 class="mb-3">方案设计</h4>
+                            <p>基于需求分析，设计最适合客户的解决方案，包括技术架构、功能规划和实施路径。</p>
+                        </div>
+                    </div>
+                    <div class="process-item d-flex" data-aos="fade-up" data-aos-delay="200">
+                        <div class="process-icon bg-primary text-white rounded-circle">3</div>
+                        <div class="process-content ms-4">
+                            <h4 class="mb-3">开发实施</h4>
+                            <p>按照方案设计，进行系统开发、集成和部署，确保高质量交付。</p>
+                        </div>
+                    </div>
+                    <div class="process-item d-flex" data-aos="fade-up" data-aos-delay="300">
+                        <div class="process-icon bg-primary text-white rounded-circle">4</div>
+                        <div class="process-content ms-4">
+                            <h4 class="mb-3">测试验收</h4>
+                            <p>进行全面的系统测试和用户验收测试，确保系统符合需求和质量标准。</p>
+                        </div>
+                    </div>
+                    <div class="process-item d-flex" data-aos="fade-up" data-aos-delay="400">
+                        <div class="process-icon bg-primary text-white rounded-circle">5</div>
+                        <div class="process-content ms-4">
+                            <h4 class="mb-3">培训支持</h4>
+                            <p>提供系统使用培训和技术支持，确保客户能够充分利用系统。</p>
+                        </div>
+                    </div>
+                    <div class="process-item d-flex" data-aos="fade-up" data-aos-delay="500">
+                        <div class="process-icon bg-primary text-white rounded-circle">6</div>
+                        <div class="process-content ms-4">
+                            <h4 class="mb-3">持续优化</h4>
+                            <p>根据系统运行情况和客户反馈，持续优化和升级系统，提供长期价值。</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 常见问题 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">常见问题</h2>
+                <p class="lead">关于我们服务的一些常见问题解答</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="accordion" id="faqAccordion">
+                    <div class="accordion-item" data-aos="fade-up">
+                        <h2 class="accordion-header" id="headingOne">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                数字化转型需要多长时间？
+                            </button>
+                        </h2>
+                        <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                数字化转型是一个持续的过程，而不是一次性的项目。具体时间取决于企业的规模、复杂度和转型范围。一般来说，中小型企业的核心业务数字化可能需要6-12个月，而大型企业的全面数字化转型可能需要2-3年或更长时间。我们会根据客户的具体情况，制定分阶段的转型计划，确保每个阶段都能产生实际价值。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="100">
+                        <h2 class="accordion-header" id="headingTwo">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                如何衡量数字化转型的投资回报？
+                            </button>
+                        </h2>
+                        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                衡量数字化转型的投资回报可以从多个维度进行，包括：运营效率提升（如流程自动化带来的人力成本节约）、收入增长（如新的数字化渠道带来的销售增长）、客户满意度提升（如通过数字化服务提升客户体验）、创新能力增强（如新产品开发周期缩短）等。我们会在项目开始前与客户共同确定关键绩效指标（KPI），并在项目实施过程中持续跟踪和评估这些指标。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="200">
+                        <h2 class="accordion-header" id="headingThree">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                                我们的数据安全如何保障？
+                            </button>
+                        </h2>
+                        <div id="collapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                数据安全是我们最重视的问题之一。我们采用多层次的安全防护措施，包括：数据加密（传输和存储）、访问控制和身份认证、安全审计和监控、定期安全评估和漏洞修复等。我们严格遵守相关的数据保护法规和标准，如GDPR、ISO 27001等。此外，我们会与客户签订严格的保密协议，确保客户数据的安全和隐私。
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item" data-aos="fade-up" data-aos-delay="300">
+                        <h2 class="accordion-header" id="headingFour">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                如何确保员工能够适应新的数字化系统？
+                            </button>
+                        </h2>
+                        <div id="collapseFour" class="accordion-collapse collapse" aria-labelledby="headingFour" data-bs-parent="#faqAccordion">
+                            <div class="accordion-body">
+                                员工适应性是数字化转型成功的关键因素。我们提供全面的变革管理服务，包括：用户参与（在系统设计阶段就让最终用户参与进来）、分层培训（针对不同角色和技能水平的用户提供定制化培训）、持续支持（提供在线帮助、知识库和技术支持）、激励机制（帮助客户设计激励机制，鼓励员工使用新系统）等。我们的目标是确保员工不仅能够使用新系统，还能充分发挥系统的价值。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 联系我们 -->
+<section class="py-5 bg-primary text-white">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">准备开始您的数字化转型之旅？</h2>
+                <p class="lead mb-4">联系我们，获取专业咨询和定制化解决方案</p>
+                <a href="/Home/Contact" class="btn btn-light btn-lg">联系我们</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <style>
+        /* 服务流程样式 */
+        .process-timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .process-timeline::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #dee2e6;
+        }
+        
+        .process-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+        
+        .process-icon {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            z-index: 1;
+        }
+        
+        /* 服务项样式 */
+        .service-item {
+            transition: all 0.3s ease;
+        }
+        
+        .service-item:hover {
+            transform: translateX(5px);
+        }
+    </style>
+}

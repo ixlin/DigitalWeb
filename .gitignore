@@ -1,0 +1,67 @@
+# .NET Core
+bin/
+obj/
+*.user
+*.userosscache
+*.suo
+*.tmp
+*.log
+*.vs
+.vscode/
+*.dbmdl
+*.jfm
+
+# SQLite temp files
+*.db-shm
+*.db-wal
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Node.js dependencies
+node_modules/
+npm-debug.log
+yarn-error.log
+
+# IDE files
+.idea/
+*.sln.iml
+
+# User-specific files
+*.rsuser
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+[Aa][Rr][Mm]/
+[Aa][Rr][Mm]64/
+bld/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+[Ll]ogs/
+
+# Visual Studio cache files
+# files ending in .cache can be ignored
+*.[Cc]ache
+# but keep track of directories ending in .cache
+!?*.[Cc]ache/
+
+# Others
+*.zip
+ClientBin/
+~$*
+*~
+*.dbmdl
+*.dbproj.schemaview
+*.pfx
+*.publishsettings
+
+# 忽略本地敏感配置文件
+appsettings.Development.json
+appsettings.Local.json
+secrets.json

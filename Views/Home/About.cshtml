@@ -1,0 +1,299 @@
+@model AboutViewModel
+@{
+    ViewData["Title"] = "关于我们";
+}
+
+<!-- 页面标题 -->
+<section class="bg-primary text-white py-5 mt-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center">
+                <h1 class="fw-bold mb-4">关于我们</h1>
+                <p class="lead">了解数字未来，您的数字化转型伙伴</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 公司简介 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row align-items-center">
+            <div class="col-lg-6 mb-4 mb-lg-0" data-aos="fade-right">
+                <img src="/images/stock/company-intro.jpg" class="img-fluid rounded shadow" alt="公司简介">
+            </div>
+            <div class="col-lg-6" data-aos="fade-left">
+                <h2 class="fw-bold mb-4">我们是谁</h2>
+                <p class="lead mb-4">数字未来是一家专注于为企业提供全方位数字化解决方案的服务提供商，致力于帮助企业实现数字化转型，提升业务价值。</p>
+                <p class="mb-4">成立于2015年，我们拥有一支由资深技术专家、行业顾问和项目管理专家组成的专业团队，为各行业客户提供从战略咨询到技术实施的全流程服务。</p>
+                <p>我们的使命是通过创新的数字化解决方案，帮助企业在数字化时代保持竞争优势，实现可持续发展。我们相信，数字化转型不仅是技术的升级，更是思维方式和商业模式的革新。</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 公司历史 -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">我们的发展历程</h2>
+                <p class="lead">从创立至今，我们不断成长与创新</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="timeline">
+                    @foreach (var historyItem in Model.CompanyHistory)
+                    {
+                        <div class="timeline-item d-flex" data-aos="fade-up" data-aos-delay="@(Model.CompanyHistory.IndexOf(historyItem) * 100)">
+                            <div class="timeline-year bg-primary text-white rounded-circle">@historyItem.Year</div>
+                            <div class="timeline-content ms-4">
+                                <h4 class="mb-3">@historyItem.Title</h4>
+                                <p>@historyItem.Description</p>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 我们的团队 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">我们的团队</h2>
+                <p class="lead">由行业专家和技术精英组成的专业团队</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            @foreach (var member in Model.TeamMembers)
+            {
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="@(Model.TeamMembers.IndexOf(member) * 100)">
+                    <div class="card h-100 border-0 shadow-sm text-center">
+                        <div class="team-img">
+                            <img src="@member.ImageUrl" class="card-img-top" alt="@member.Name">
+                        </div>
+                        <div class="card-body p-4">
+                            <h5 class="card-title mb-1">@member.Name</h5>
+                            <p class="text-primary mb-3">@member.Title</p>
+                            <p class="card-text small">@member.Bio</p>
+                            <div class="team-social mt-3">
+                                <a href="#" class="me-2 text-secondary"><i class="bi bi-linkedin"></i></a>
+                                <a href="#" class="me-2 text-secondary"><i class="bi bi-twitter-x"></i></a>
+                                <a href="#" class="text-secondary"><i class="bi bi-envelope"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- 核心价值观 -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">我们的核心价值观</h2>
+                <p class="lead">指导我们工作和决策的基本原则</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            @foreach (var value in Model.CoreValues)
+            {
+                <div class="col-md-6 col-lg-3" data-aos="fade-up" data-aos-delay="@(Model.CoreValues.IndexOf(value) * 100)">
+                    <div class="card h-100 border-0 shadow-sm text-center">
+                        <div class="card-body p-4">
+                            <div class="value-icon bg-white rounded-circle mb-4 mx-auto">
+                                <i class="@value.IconClass fs-3 text-primary"></i>
+                            </div>
+                            <h4 class="card-title mb-3">@value.Title</h4>
+                            <p class="card-text">@value.Description</p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- 我们的优势 -->
+<section class="py-5">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">我们的优势</h2>
+                <p class="lead">为什么选择数字未来作为您的数字化转型伙伴</p>
+            </div>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6" data-aos="fade-up">
+                <div class="advantage-item d-flex">
+                    <div class="advantage-icon me-4">
+                        <i class="bi bi-stars fs-1 text-primary"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-3">丰富的行业经验</h4>
+                        <p>我们拥有10年以上的行业经验，服务过各行业的50多家企业客户，对不同行业的业务特点和数字化需求有深入理解。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="100">
+                <div class="advantage-item d-flex">
+                    <div class="advantage-icon me-4">
+                        <i class="bi bi-people-fill fs-1 text-primary"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-3">专业的团队</h4>
+                        <p>我们的团队由资深技术专家、行业顾问和项目管理专家组成，拥有丰富的项目经验和专业技能。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="200">
+                <div class="advantage-item d-flex">
+                    <div class="advantage-icon me-4">
+                        <i class="bi bi-gear-wide-connected fs-1 text-primary"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-3">全面的解决方案</h4>
+                        <p>我们提供从战略咨询到技术实施的全流程服务，覆盖企业数字化转型的各个方面。</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6" data-aos="fade-up" data-aos-delay="300">
+                <div class="advantage-item d-flex">
+                    <div class="advantage-icon me-4">
+                        <i class="bi bi-graph-up-arrow fs-1 text-primary"></i>
+                    </div>
+                    <div>
+                        <h4 class="mb-3">注重实际成果</h4>
+                        <p>我们关注客户的业务成果，确保我们的解决方案能够带来实际的商业价值。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 合作伙伴 -->
+<section class="py-5 bg-light">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center mb-5" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">我们的合作伙伴</h2>
+                <p class="lead">与行业领先企业建立战略合作关系</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <div class="partners-slider text-center" data-aos="fade-up">
+                    <div class="d-flex flex-wrap justify-content-center align-items-center">
+                        <div class="partner-item mx-4 my-3">
+                            <img src="/images/partners/partner1.png" alt="合作伙伴" class="img-fluid">
+                        </div>
+                        <div class="partner-item mx-4 my-3">
+                            <img src="/images/partners/partner2.png" alt="合作伙伴" class="img-fluid">
+                        </div>
+                        <div class="partner-item mx-4 my-3">
+                            <img src="/images/partners/partner3.png" alt="合作伙伴" class="img-fluid">
+                        </div>
+                        <div class="partner-item mx-4 my-3">
+                            <img src="/images/partners/partner4.png" alt="合作伙伴" class="img-fluid">
+                        </div>
+                        <div class="partner-item mx-4 my-3">
+                            <img src="/images/partners/partner5.png" alt="合作伙伴" class="img-fluid">
+                        </div>
+                        <div class="partner-item mx-4 my-3">
+                            <img src="/images/partners/partner6.png" alt="合作伙伴" class="img-fluid">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 联系我们 -->
+<section class="py-5 bg-primary text-white">
+    <div class="container py-4">
+        <div class="row">
+            <div class="col-lg-8 mx-auto text-center" data-aos="fade-up">
+                <h2 class="fw-bold mb-4">加入我们，共创数字未来</h2>
+                <p class="lead mb-4">无论您是寻找数字化解决方案的企业，还是有志于数字化领域的人才，我们都欢迎您的加入</p>
+                <div class="d-flex justify-content-center">
+                    <a href="/Home/Contact" class="btn btn-light btn-lg me-3">联系我们</a>
+                    <a href="#" class="btn btn-outline-light btn-lg">加入我们</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@section Scripts {
+    <style>
+        /* 团队成员样式 */
+        .team-img img {
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        /* 时间线样式 */
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+        
+        .timeline::before {
+            content: "";
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background-color: #dee2e6;
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+        
+        .timeline-year {
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 0.8rem;
+            z-index: 1;
+        }
+        
+        /* 价值观图标样式 */
+        .value-icon {
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* 合作伙伴样式 */
+        .partner-item img {
+            max-height: 60px;
+            filter: grayscale(100%);
+            opacity: 0.7;
+            transition: all 0.3s ease;
+        }
+        
+        .partner-item:hover img {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+    </style>
+}

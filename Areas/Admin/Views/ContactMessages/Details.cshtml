@@ -1,0 +1,275 @@
+@model DigitalSolutionsWeb.Models.ContactMessage
+
+@{ 
+    ViewData["Title"] = "联系消息详情";
+}
+
+<div class="container-fluid">
+    @Html.AntiForgeryToken()
+    <div class="row">
+        <div class="col-md-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h1 class="h3 mb-0">
+                    <i class="fas fa-envelope-open me-2"></i>联系消息详情
+                </h1>
+                <div>
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <i class="fas fa-arrow-left me-2"></i>返回列表
+                    </a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-8">
+                    <!-- 消息内容卡片 -->
+                    <div class="card mb-4">
+                        <div class="card-header d-flex justify-content-between align-items-center">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-comment-alt me-2"></i>消息内容
+                            </h5>
+                            @if (Model.IsRead)
+                            {
+                                <span class="badge bg-success">已读</span>
+                            }
+                            else
+                            {
+                                <span class="badge bg-warning">未读</span>
+                            }
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-4">
+                                <h6 class="text-muted mb-2">主题</h6>
+                                <h4 class="text-primary">@Model.Subject</h4>
+                            </div>
+                            
+                            <div class="mb-4">
+                                <h6 class="text-muted mb-2">消息内容</h6>
+                                <div class="bg-light p-3 rounded">
+                                    <p class="mb-0" style="white-space: pre-wrap;">@Model.Message</p>
+                                </div>
+                            </div>
+
+                            <div class="row text-center">
+                                <div class="col-md-4">
+                                    <a href="mailto:@Model.Email" class="btn btn-primary w-100">
+                                        <i class="fas fa-reply me-2"></i>回复邮件
+                                    </a>
+                                </div>
+                                <div class="col-md-4">
+                                    @if (!string.IsNullOrEmpty(Model.Phone))
+                                    {
+                                        <a href="tel:@Model.Phone" class="btn btn-success w-100">
+                                            <i class="fas fa-phone me-2"></i>拨打电话
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <button class="btn btn-outline-secondary w-100" disabled>
+                                            <i class="fas fa-phone me-2"></i>无电话号码
+                                        </button>
+                                    }
+                                </div>
+                                <div class="col-md-4">
+                                    <button class="btn btn-outline-info w-100" onclick="copyContactInfo()">
+                                        <i class="fas fa-copy me-2"></i>复制联系信息
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-lg-4">
+                    <!-- 联系人信息卡片 -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-user me-2"></i>联系人信息
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <label class="form-label text-muted">姓名</label>
+                                <div class="fw-bold">@Model.Name</div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label text-muted">邮箱地址</label>
+                                <div>
+                                    <a href="mailto:@Model.Email" class="text-decoration-none">
+                                        <i class="fas fa-envelope me-1"></i>@Model.Email
+                                    </a>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label text-muted">电话号码</label>
+                                <div>
+                                    @if (!string.IsNullOrEmpty(Model.Phone))
+                                    {
+                                        <a href="tel:@Model.Phone" class="text-decoration-none">
+                                            <i class="fas fa-phone me-1"></i>@Model.Phone
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <span class="text-muted">未提供</span>
+                                    }
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label class="form-label text-muted">提交时间</label>
+                                <div>
+                                    <i class="fas fa-clock me-1"></i>
+                                    @Model.SubmittedAt.ToString("yyyy年MM月dd日 HH:mm")
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- 操作卡片 -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">
+                                <i class="fas fa-cogs me-2"></i>操作
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <div class="d-grid gap-2">
+                                @if (!Model.IsRead)
+                                {
+                                    <button class="btn btn-outline-success" onclick="markAsRead(@Model.Id)">
+                                        <i class="fas fa-check me-2"></i>标记为已读
+                                    </button>
+                                }
+                                else
+                                {
+                                    <button class="btn btn-outline-warning" onclick="markAsUnread(@Model.Id)">
+                                        <i class="fas fa-undo me-2"></i>标记为未读
+                                    </button>
+                                }
+                                
+                                <button class="btn btn-outline-danger" onclick="deleteMessage(@Model.Id)">
+                                    <i class="fas fa-trash me-2"></i>删除消息
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        function copyContactInfo() {
+            const contactInfo = `姓名: @Model.Name\n邮箱: @Model.Email\n电话: @(Model.Phone ?? "未提供")\n主题: @Model.Subject`;
+            navigator.clipboard.writeText(contactInfo).then(function() {
+                // 显示复制成功提示
+                showToast('联系信息已复制到剪贴板', 'success');
+            }).catch(function() {
+                // 兼容性处理
+                const textArea = document.createElement('textarea');
+                textArea.value = contactInfo;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('联系信息已复制到剪贴板', 'success');
+            });
+        }
+
+        function markAsRead(id) {
+            fetch(`/Admin/ContactMessages/MarkAsRead/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                },
+                body: JSON.stringify({ id: id })
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // 刷新页面以更新状态
+                } else {
+                    showToast('操作失败，请重试', 'error');
+                }
+            })
+            .catch(() => {
+                showToast('网络错误，请重试', 'error');
+            });
+        }
+
+        function markAsUnread(id) {
+            fetch(`/Admin/ContactMessages/MarkAsUnread/${id}`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                },
+                body: JSON.stringify({ id: id })
+            })
+            .then(response => {
+                if (response.ok) {
+                    location.reload(); // 刷新页面以更新状态
+                } else {
+                    showToast('操作失败，请重试', 'error');
+                }
+            })
+            .catch(() => {
+                showToast('网络错误，请重试', 'error');
+            });
+        }
+
+        function deleteMessage(id) {
+            if (confirm('确定要删除这条消息吗？此操作不可撤销。')) {
+                fetch(`/Admin/ContactMessages/Delete/${id}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'RequestVerificationToken': document.querySelector('input[name="__RequestVerificationToken"]')?.value || ''
+                    },
+                    body: JSON.stringify({ id: id })
+                })
+                .then(response => {
+                    if (response.ok) {
+                        showToast('消息已删除', 'success');
+                        setTimeout(() => {
+                            window.location.href = '/Admin/ContactMessages';
+                        }, 1500);
+                    } else {
+                        showToast('删除失败，请重试', 'error');
+                    }
+                })
+                .catch(() => {
+                    showToast('网络错误，请重试', 'error');
+                });
+            }
+        }
+
+        function showToast(message, type = 'info') {
+            // 创建toast元素
+            const toast = document.createElement('div');
+            toast.className = `alert alert-${type === 'success' ? 'success' : type === 'error' ? 'danger' : 'info'} alert-dismissible fade show position-fixed`;
+            toast.style.top = '20px';
+            toast.style.right = '20px';
+            toast.style.zIndex = '9999';
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-triangle' : 'info-circle'} me-2"></i>
+                ${message}
+                <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+            `;
+            
+            document.body.appendChild(toast);
+            
+            // 3秒后自动移除
+            setTimeout(() => {
+                if (toast.parentNode) {
+                    toast.parentNode.removeChild(toast);
+                }
+            }, 3000);
+        }
+    </script>
+}
